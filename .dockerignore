@@ -1,0 +1,6 @@
+.git
+.gitignore
+dist
+data
+*.zip
+.DS_Store

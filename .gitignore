@@ -1,0 +1,13 @@
+# Build and release artifacts
+/dist/
+*.zip
+
+# Runtime data
+/data/
+*.wal
+snapshot.dat
+
+# Local editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
