@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WAL 崩溃恢复演示</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <p class="eyebrow">CRASH CONSISTENCY LAB</p>
+      <h1>WAL 崩溃恢复库</h1>
+      <p>追加、组提交、校验、快照和恢复，都在一个本地控制台中。</p>
+    </div>
+    <span id="status" class="status">● 正常</span>
+  </header>
+  <main>
+    <section class="card write-card">
+      <h2>写入数据</h2>
+      <form id="write-form">
+        <label>Key<input id="key" value="hello" required></label>
+        <label>Value<input id="value" value="durable world"></label>
+        <button type="submit">追加并刷盘</button>
+      </form>
+      <div class="row">
+        <label>批量条数<input id="batch-count" type="number" value="20" min="1" max="1000"></label>
+        <button id="batch">组提交</button>
+        <button id="sync" class="secondary">Sync</button>
+      </div>
+      <p id="message" class="message">等待操作。</p>
+    </section>
+    <section class="card metrics-card">
+      <div class="title-row"><h2>运行指标</h2><button id="refresh" class="ghost">刷新</button></div>
+      <div id="metrics" class="metrics"></div>
+    </section>
+    <section class="card data-card">
+      <div class="title-row"><h2>当前键值</h2><button id="snapshot" class="secondary">创建快照</button></div>
+      <div id="items" class="list empty">暂无数据</div>
+    </section>
+    <section class="card log-card">
+      <div class="title-row"><h2>日志记录</h2><button id="load-log" class="ghost">读取最近记录</button></div>
+      <div id="records" class="list empty">暂无记录</div>
+    </section>
+    <section class="card danger-card">
+      <h2>故障演练</h2>
+      <p>损坏会翻转指定记录的负载字节；崩溃按钮仅在使用 <code>-allow-crash</code> 启动时有效。</p>
+      <div class="row">
+        <input id="corrupt-seq" type="number" min="1" placeholder="记录 seq">
+        <button id="corrupt" class="danger">注入损坏</button>
+        <button id="recover" class="secondary">重新扫描</button>
+        <button id="crash" class="danger">模拟崩溃</button>
+      </div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
